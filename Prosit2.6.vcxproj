@@ -120,18 +120,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AccesBdd.cpp" />
-    <ClCompile Include="GestionEmploye.cpp" />
+    <ClCompile Include="CAD.cpp" />
+    <ClCompile Include="GestionClient.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapEmploye.cpp" />
+    <ClCompile Include="MapAddress.cpp" />
+    <ClCompile Include="MapClient.cpp" />
+    <ClCompile Include="MapLocaliserClient.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AccesBdd.h" />
-    <ClInclude Include="GestionEmploye.h" />
+    <ClInclude Include="CAD.h" />
+    <ClInclude Include="GestionClient.h" />
+    <ClInclude Include="MapAddress.h" />
+    <ClInclude Include="MapLocaliserClient.h" />
+    <ClInclude Include="pch.h" />
     <ClInclude Include="Home.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="MapEmploye.h" />
+    <ClInclude Include="MapClient.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,5 @@
 #include "Home.h"
-
-using namespace System;
-using namespace System::Windows::Forms;
+#include "pch.h"
 
 [STAThreadAttribute]
 
