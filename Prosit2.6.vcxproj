@@ -81,6 +81,8 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,12 +120,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccesBdd.cpp" />
+    <ClCompile Include="GestionEmploye.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapEmploye.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccesBdd.h" />
+    <ClInclude Include="GestionEmploye.h" />
     <ClInclude Include="Home.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="MapEmploye.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Prosit2.6.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
