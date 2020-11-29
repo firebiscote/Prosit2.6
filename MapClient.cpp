@@ -59,9 +59,7 @@ void MapClient::setName(String^ name) {
 }
 
 void MapClient::setAddress(String^ address) {
-	if (address != "") {
-		this->Address = address;
-	}
+	this->Address = address;
 }
 
 int MapClient::getID(void) {
