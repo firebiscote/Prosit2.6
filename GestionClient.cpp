@@ -4,8 +4,6 @@ namespace Services {
 	GestionClient::GestionClient() {
 		this->_cad = gcnew CAD();
 		this->_client = gcnew MapClient();
-		this->_address = gcnew MapAddress();
-		this->_localiserClient = gcnew MapLocaliserClient();
 	}
 
 	DataSet^ GestionClient::listeClient(String^ dataTableName) {
@@ -14,15 +12,17 @@ namespace Services {
 		return this->_ds;
 	}
 
-	void GestionClient::addClient(String^ name, String^ address) {
-		int idClient, idAddress;
+	void GestionClient::addClient(String^ name) {
+		int idClient;
 		this->_client->setName(name);
-		this->_address->setAddress(address);
 		idClient = this->_cad->actionRowsID(this->_client->INSERT());
-		idAddress = this->_cad->actionRowsID(this->_address->INSERT());
-		this->_localiserClient->setID_address(idAddress);
-		this->_localiserClient->setID_client(idClient);
-		this->_cad->actionRowsID(this->_localiserClient->INSERT());
+	}
+
+	void GestionClient::addClient(String^ name, String^ address) {
+		int idClient;
+		this->_client->setName(name);
+		this->_client->setAddress(address);
+		idClient = this->_cad->actionRowsID(this->_client->INSERT());
 	}
 
 	void GestionClient::deleteClient(String^ name) {
@@ -34,7 +34,13 @@ namespace Services {
 	void GestionClient::updateClient(String^ name, String^ newName) {
 		int id;
 		this->_client->setName(name);
-		id = this->_cad->actionRowsID(this->_client->UPDATE(newName));
+		id = this->_cad->actionRowsID(this->_client->UPDATE_CLIENT(newName));
+	}
+
+	void GestionClient::updateAddress(String^ address, String^ newAddress) {
+		int id;
+		this->_client->setAddress(address);
+		id = this->_cad->actionRowsID(this->_client->UPDATE_ADDRESS(newAddress));
 	}
 }
 

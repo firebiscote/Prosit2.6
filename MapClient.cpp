@@ -3,6 +3,7 @@
 MapClient::MapClient(void) {
 	this->ID = -1;
 	this->Name = "";
+	this->Address = "";
 }
 
 String^ MapClient::SELECT(void) {
@@ -10,20 +11,39 @@ String^ MapClient::SELECT(void) {
 }
 
 String^ MapClient::INSERT(void) {
-	return "BEGIN TRANSACTION; INSERT INTO client (name) VALUES('" + this->getName() + "');SELECT @@IDENTITY; COMMIT;";
+	if (this->getAddress() == "") {
+		return	"BEGIN TRANSACTION;" +
+				"IF '" + this->getName() + "' NOT IN (SELECT client.name FROM client) BEGIN" +
+				"	INSERT INTO client (name) VALUES('" + this->getName() + "');" +
+				"END COMMIT;";
+	} else {
+		return	"BEGIN TRANSACTION; DECLARE @idClient INT; DECLARE @idAddress INT;" +
+				"IF '" + this->getName() + "' NOT IN (SELECT client.name FROM client) BEGIN" +
+				"	INSERT INTO client (name) VALUES('" + this->getName() + "');\nEND" +
+				"\nSET @idClient = (SELECT client.ID FROM client WHERE '" + this->getName() + "' = client.name);" +
+				"IF '" + this->getAddress() + "' NOT IN (SELECT address.address FROM address) BEGIN" +
+				"	INSERT INTO address (address) VALUES('" + this->getAddress() + "');\nEND" +
+				"\nSET @idAddress = (SELECT address.ID FROM address WHERE '" + this->getAddress() + "' = address.address);" +
+				"IF CONCAT(@idClient, @idAddress) NOT IN (SELECT CONCAT(localiserClient.id_client, localiserClient.id_address) FROM localiserClient) BEGIN" +
+				"	INSERT INTO localiserClient (id_client, id_address) VALUES(@idClient, @idAddress);\nEND" +
+				"\nCOMMIT;";
+	}
 }
 
 String^ MapClient::DELETE(void) {
-	return "BEGIN TRANSACTION; DECLARE @idAddress INT; DECLARE @idClient INT;" +
+	return "BEGIN TRANSACTION; DECLARE @idClient INT;" +
 		"SET @idClient = (SELECT ID FROM client WHERE client.name = '" + this->getName() + "');" +
-		"SET @idAddress = (SELECT ID_address FROM client LEFT JOIN localiserClient ON @idClient = localiserClient.ID_client);" +
 		"DELETE FROM localiserClient WHERE @idClient = localiserClient.ID_client;" +
-		"DELETE FROM address WHERE @idAddress = address.ID;" +
+		"DELETE FROM address WHERE address.ID NOT IN (SELECT localiserClient.id_address FROM localiserClient);" +
 		"DELETE FROM client WHERE @idClient = client.ID; COMMIT;";
 }
 
-String^ MapClient::UPDATE(String^ newName) {
+String^ MapClient::UPDATE_CLIENT(String^ newName) {
 	return "BEGIN TRANSACTION; UPDATE client SET client.name = '" + newName + "' WHERE client.name = '" + this->getName() + "'; COMMIT";
+}
+
+String^ MapClient::UPDATE_ADDRESS(String^ newAddress) {
+	return "BEGIN TRANSACTION; UPDATE address SET address.address = '" + newAddress + "' WHERE address.address = '" + this->getAddress() + "'; COMMIT;";
 }
 
 void MapClient::setID(int idClient) {
@@ -38,10 +58,20 @@ void MapClient::setName(String^ name) {
 	}
 }
 
+void MapClient::setAddress(String^ address) {
+	if (address != "") {
+		this->Address = address;
+	}
+}
+
 int MapClient::getID(void) {
 	return this->ID;
 }
 
 String^ MapClient::getName(void) {
 	return this->Name;
+}
+
+String^ MapClient::getAddress(void) {
+	return this->Address;
 }

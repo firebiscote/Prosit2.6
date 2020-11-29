@@ -123,15 +123,11 @@
     <ClCompile Include="CAD.cpp" />
     <ClCompile Include="GestionClient.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapAddress.cpp" />
     <ClCompile Include="MapClient.cpp" />
-    <ClCompile Include="MapLocaliserClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CAD.h" />
     <ClInclude Include="GestionClient.h" />
-    <ClInclude Include="MapAddress.h" />
-    <ClInclude Include="MapLocaliserClient.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Home.h">
       <FileType>CppForm</FileType>

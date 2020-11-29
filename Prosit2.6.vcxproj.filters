@@ -33,12 +33,6 @@
     <ClInclude Include="pch.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="MapAddress.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="MapLocaliserClient.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,12 +45,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="GestionClient.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MapAddress.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MapLocaliserClient.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
